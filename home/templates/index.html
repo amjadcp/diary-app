@@ -1,14 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Diary</title>
-  </head>
-  <body>
-    <a href="accounts/logout">Logout</a>
-    <a href="accounts/login">Login</a>
-    <a href="{% url 'users:registration' %}">Registration</a>
-  </body>
-</html>
+{% extends './form_base.html' %}
+{% load static %}
+
+{% block title %}
+My Diary
+{% endblock title %}
+
+{% block head %}
+My Diary
+{% endblock head %}
+
+{% block form %}
+<img src="{% static 'form/img/diary.jpeg' %}" alt="" class="form-logo">
+<div class="row row-space">
+  <div class="col-2">
+      
+      <div class="input-group">
+        <a href="accounts/login" class="form-button">Login</a>
+      </div>
+      <div class="input-group">
+        <a href="{% url 'users:registration' %}" class="form-button">Registration</a>
+      </div>
+  </div>
+  <div class="col-2">
+      <div class="input-group">
+        <div class="form-para">
+          <p class="form-line">A quitter never wins and a winner never quits</p>
+        </div>
+      </div>
+  </div>
+</div>
+
+{% comment %} <div class="p-t-15">
+  <a href="accounts/logout" class="likeabutton">Logout</a> <br>
+  <a href="accounts/login" class="btn btn--radius-2 btn--blue">Login</a> <br>
+  <a href="{% url 'users:registration' %}" class="btn btn--radius-2 btn--blue">Registration</a>
+</div> {% endcomment %}
+
+{% endblock form %}
+

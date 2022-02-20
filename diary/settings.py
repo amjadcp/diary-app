@@ -134,7 +134,7 @@ AUTH_USER_MODEL = 'users.User'
 # LOGIN_URL = '/login'
 
 # redirect url after login
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard'
 
 # redirect url after logout
 LOGOUT_REDIRECT_URL = '/'
