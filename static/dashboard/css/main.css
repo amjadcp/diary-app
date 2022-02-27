@@ -1,0 +1,43 @@
+/* my creation */
+.add-btn {
+  text-decoration: none;
+  text-align: center;
+  /* padding-top: 15px; */
+  font: menu;
+  font-size: larger;
+  display: inline-block;
+  /* padding: 15px 100px; */
+  background: #b03778;
+  color: white;
+  border-style: none;
+  border-width: 2px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  /* border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight; */
+}
+.add-btn:hover {
+  color: #b03778;
+  background-color: wheat;
+}
+
+.add-btn-calendar {
+  text-decoration: none;
+  text-align: center;
+  /* padding-top: 15px; */
+  font: menu;
+  font-size: xx-large;
+  display: inline-block;
+  background: transparent;
+  color: #b03778;
+  border-style: none;
+  border-width: 2px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  /* border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight; */
+}
+.add-btn-calendar:hover {
+  color: #b03778;
+  background-color: wheat;
+}

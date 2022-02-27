@@ -10,9 +10,10 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
+    
     <link
       href="{% static 'dashboard/vendor/fontawesome-free/css/all.min.css' %}"
       rel="stylesheet"
@@ -24,6 +25,7 @@
     />
 
     <!-- Custom styles for this template-->
+    <link href="{% static 'dashboard/css/main.css' %}" rel="stylesheet" />
     <link href="{% static 'dashboard/css/sb-admin-2.min.css' %}" rel="stylesheet" />
 
     <!-- Essential JS 2 Calendar's dependent material theme -->
@@ -60,7 +62,7 @@
         <!-- Sidebar - Brand -->
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          href="#"
         >
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
@@ -74,7 +76,7 @@
         <hr class="sidebar-divider my-0" />
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -94,37 +96,31 @@
             class="nav-link collapsed"
             href="#"
             data-toggle="collapse"
-            data-target="#collapseTwo"
+            data-target="#collapseHome"
             aria-expanded="true"
-            aria-controls="collapseTwo"
+            aria-controls="collapseHome"
+            id="calendar"
           >
             <i class="fas fa-fw fa-home"></i>
-            <span>Home</span>
+            <span>Calender</span>
           </a>
           <div
-            id="collapseTwo"
+            id="collapseHome"
             class="collapse"
             aria-labelledby="headingTwo"
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Components:</h6>
+              <h6 class="collapse-header">Calendar:</h6>
               <!-- Add the HTML <div> element  -->
+                {% csrf_token %}
               <div
                 id="element"
                 class="bg-white py-2 collapse-inner rounded"
               ></div>
-              <script>
-                // initialize the Calendar component
-                var calendar = new ej.calendars.Calendar({
-                  change: function (args) {
-                    console.log(args.value.toLocaleDateString())
-                  },
-                })
-
-                // Render the initialized button.
-                calendar.appendTo('#element')
-              </script>
+              <center>
+                <button class="add-btn-calendar" id='add-calendar'>+</button>
+              </center>
             </div>
           </div>
         </li>
@@ -135,15 +131,16 @@
             class="nav-link collapsed"
             href="#"
             data-toggle="collapse"
-            data-target="#collapseThree"
+            data-target="#collapseAllentries"
             aria-expanded="true"
-            aria-controls="collapseThree"
+            aria-controls="collapseAllentries"
+            id="allentries"
           >
             <i class="fas fa-fw fa-inbox"></i>
             <span>All Entries</span>
           </a>
-          <div
-            id="collapseTwo"
+          {% comment %} <div
+            id="collapseAllentries"
             class="collapse"
             aria-labelledby="headingTwo"
             data-parent="#accordionSidebar"
@@ -153,8 +150,14 @@
               <a class="collapse-item" href="buttons.html">Buttons</a>
               <a class="collapse-item" href="cards.html">Cards</a>
             </div>
-          </div>
+          </div> {% endcomment %}
         </li>
+        <script>
+          function hi(){
+            alert('hi')
+          }
+        </script>
+        
 
         <!-- Nav Item - Drafts Collapse Menu -->
         <li class="nav-item">
@@ -162,15 +165,15 @@
             class="nav-link collapsed"
             href="#"
             data-toggle="collapse"
-            data-target="#collapseUtilities"
+            data-target="#collapseDrafts"
             aria-expanded="true"
-            aria-controls="collapseUtilities"
+            aria-controls="collapseDrafts"
           >
             <i class="fas fa-fw fa-envelope-open"></i>
             <span>Drafts</span>
           </a>
           <div
-            id="collapseUtilities"
+            id="collapseDrafts"
             class="collapse"
             aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar"
@@ -286,7 +289,7 @@
                   aria-expanded="false"
                 >
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                    Douglas McGee
+                    {{user.username}}
                   </span>
                   <img
                     class="img-profile rounded-circle"
@@ -330,16 +333,9 @@
 
           <!-- Begin Page Content -->
           <div class="container-fluid">
-            <!-- Page Heading -->
-            <div
-              class="d-sm-flex align-items-center justify-content-between mb-4"
-            >
-              <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            </div>
 
             <!-- Content Row -->
             <div class="row">
-              <!-- Earnings (Monthly) Card Example -->
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
@@ -348,10 +344,10 @@
                         <div
                           class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                         >
-                          Earnings (Monthly)
+                          Totel Entries
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          $40,000
+                          {{totalentries}}
                         </div>
                       </div>
                       <div class="col-auto">
@@ -361,155 +357,103 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Earnings (Monthly) Card Example -->
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
+                <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div
-                          class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                         >
-                          Earnings (Annual)
+                          This Year
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          $215,000
+                          {{thisyear}}
                         </div>
                       </div>
                       <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- Earnings (Monthly) Card Example -->
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
+                <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div
-                          class="text-xs font-weight-bold text-info text-uppercase mb-1"
+                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                         >
-                          Tasks
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                          <div class="col-auto">
-                            <div
-                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
-                            >
-                              50%
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="progress progress-sm mr-2">
-                              <div
-                                class="progress-bar bg-info"
-                                role="progressbar"
-                                style="width: 50%;"
-                                aria-valuenow="50"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              ></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-auto">
-                        <i
-                          class="fas fa-clipboard-list fa-2x text-gray-300"
-                        ></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Pending Requests Card Example -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div
-                          class="text-xs font-weight-bold text-warning text-uppercase mb-1"
-                        >
-                          Pending Requests
+                          This Month
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          18
+                          {{thismonth}}
                         </div>
                       </div>
                       <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Content Row -->
-
-            <div class="col-lg-12">
-              <!-- Illustrations -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">
-                    Illustrations
-                  </h6>
-                </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <img
-                      class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-                      style="width: 25rem;"
-                      src="img/undraw_posting_photo.svg"
-                      alt="..."
-                    />
-                  </div>
-                  <p>
-                    Add some quality, svg illustrations to your project courtesy
-                    of
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">
-                      unDraw
-                    </a>
-                    , a constantly updated collection of beautiful svg images
-                    that you can use completely free and without attribution!
-                  </p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">
-                    Browse Illustrations on unDraw &rarr;
-                  </a>
-                </div>
-              </div>
-
-              <!-- Approach -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">
-                    Development Approach
-                  </h6>
-                </div>
-                <div class="card-body">
-                  <p>
-                    SB Admin 2 makes extensive use of Bootstrap 4 utility
-                    classes in order to reduce CSS bloat and poor page
-                    performance. Custom CSS classes are used to create custom
-                    components and custom utility classes.
-                  </p>
-                  <p class="mb-0">
-                    Before working with this theme, you should become familiar
-                    with the Bootstrap framework, especially the utility
-                    classes.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          
           <!-- /.container-fluid -->
+          <div class="col-lg-12" >
+              <center>
+                <div
+                    id="element2"
+                    class="bg-white py-2 collapse-inner rounded"
+                  ></div>
+                  <br>
+                <button class="add-btn" id='add'>+</button>
+              </center>
+              <!-- Illustrations -->
+              <div class="card shadow mb-4" id='diary'>
+                <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary" id="diary-title">
+                </h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img
+                        class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+                        style="width: 25rem;"
+                        src="img/undraw_posting_photo.svg"
+                        alt="..."
+                        />
+                    </div>
+                    <p id="diary-body">
+                    </p>
+                </div>
+              </div>
+              <div id='diary-all'>
+              {% for endry in diary %}
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                  {{endry.title}}
+                </h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img
+                        class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+                        style="width: 25rem;"
+                        src="img/undraw_posting_photo.svg"
+                        alt="..."
+                        />
+                    </div>
+                    <p>
+                  {{endry.body}}
+                    </p>
+                </div>
+                {% endfor %}
+              </div>
+              </div>
         </div>
         <!-- End of Main Content -->
 
@@ -593,6 +537,8 @@
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
+    <script src={% static 'dashboard/js/calendar.js'%}></script>
+
   </body>
 </html>
 
