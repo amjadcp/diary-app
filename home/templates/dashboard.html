@@ -451,7 +451,10 @@
                       <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
                           {{endry.title}}
-                        <button>Delete</button>
+                        <form action="" method="post">
+                          {% csrf_token %}
+                          <button type="button" name="delete" id="delete" class="btn btn-primary" value="{{endry.id}}" onClick="del_diary({{endry.id}})">Delete</button>
+                        </form>
                         </h6>
                       </div>
                       <div class="card-body">

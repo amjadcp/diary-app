@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 import datetime
 from home.models import Diary
@@ -60,6 +60,7 @@ def calendar(request):
 
 @login_required
 def create_diary(request):
+    print(request.POST)
     date = request.POST['date']
     date = date.split('/')
     if int(date[0])<10:
@@ -77,3 +78,11 @@ def create_diary(request):
         body = body
     )
     return JsonResponse({'message':'1'})
+
+@login_required
+def del_diary(request):
+    if request.method == 'POST':
+        id = request.POST['id']
+        diary = Diary.objects.get(id=id)
+        diary.delete()
+        return JsonResponse({'message':'1'})

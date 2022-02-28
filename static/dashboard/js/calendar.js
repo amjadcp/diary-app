@@ -1,9 +1,21 @@
 window.addEventListener('load', () => {
-  $('#diary').hide()
-  $('#diary-all').hide()
-  $('#add').hide()
-  $('#add-calendar').hide()
-  $('#page').hide()
+  let check = localStorage.getItem('check')
+  if (check === '1') {
+    $('#diary').hide()
+    $('#add').hide()
+    $('#add-calendar').hide()
+    $('#page').hide()
+    $('#element2').hide()
+    $('#diary-all').show()
+    console.log('hiiiii')
+    localStorage.setItem('check', '0')
+  } else {
+    $('#diary').hide()
+    $('#diary-all').hide()
+    $('#add').hide()
+    $('#add-calendar').hide()
+    $('#page').hide()
+  }
 })
 $('#allentries').click(() => {
   $('#diary-all').show()
@@ -45,12 +57,30 @@ $('#submit').click(() => {
       success: (responce) => {
         $('#title').val('')
         $('#text').val('')
-        // $('#page').hide()
+        $('#page').hide()
         location.reload()
       },
     })
   }
 })
+
+const del_diary = (id) => {
+  let csrf = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+  let data = {
+    csrfmiddlewaretoken: csrf,
+    id: id,
+  }
+  $.ajax({
+    url: 'del-diary',
+    method: 'POST',
+    data: data,
+    dataType: 'json',
+    success: (responce) => {
+      location.reload()
+      localStorage.setItem('check', '1')
+    },
+  })
+}
 
 var calendar = new ej.calendars.Calendar({
   change: function (args) {
