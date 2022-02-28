@@ -7,4 +7,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('dashboard', dashboard, name='dashboard'),
     path('calendar', calendar, name='calendar'),
+    path('create-diary', create_diary, name='create-diary'),
 ]

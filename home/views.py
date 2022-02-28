@@ -57,3 +57,23 @@ def calendar(request):
                 })
         
     return JsonResponse({'message':'1'})
+
+@login_required
+def create_diary(request):
+    date = request.POST['date']
+    date = date.split('/')
+    if int(date[0])<10:
+        date[0] = '0'+date[0]
+    if int(date[1])<10:
+        date[1] = '0'+date[1]
+    date = f'{date[2]}-{date[1]}-{date[0]}'
+
+    title = request.POST['title']
+    body = request.POST['text']
+    Diary.objects.create(
+        user = request.user,
+        date = date,
+        title = title,
+        body = body
+    )
+    return JsonResponse({'message':'1'})
