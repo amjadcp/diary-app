@@ -7,7 +7,6 @@ window.addEventListener('load', () => {
     $('#page').hide()
     $('#element2').hide()
     $('#diary-all').show()
-    console.log('hiiiii')
     localStorage.setItem('check', '0')
   } else {
     $('#diary').hide()
