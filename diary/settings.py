@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,3 +139,11 @@ LOGIN_REDIRECT_URL = '/dashboard'
 
 # redirect url after logout
 LOGOUT_REDIRECT_URL = '/'
+
+#email client
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "calicut673007@gmail.com"
+EMAIL_HOST_PASSWORD = "password"
+EMAIL_USE_TLS = True
