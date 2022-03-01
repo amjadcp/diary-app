@@ -10,4 +10,5 @@ urlpatterns = [
     path('create-diary', create_diary, name='create-diary'),
     path('edit-diary', edit_diary, name='edit-diary'),
     path('del-diary', del_diary, name='del-diary'),
+    path('search', search, name='search'),
 ]

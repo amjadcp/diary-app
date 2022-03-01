@@ -69,6 +69,31 @@ $('#cancel').click(() => {
   $('#element2').hide()
   $('#diary-all').show()
 })
+$('#search-btn').click(() => {
+  let text = $('#search-field').val()
+  let csrf = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+  let data = {
+    csrfmiddlewaretoken: csrf,
+    text: text,
+  }
+  $.ajax({
+    url: 'search',
+    method: 'POST',
+    data: data,
+    dataType: 'json',
+    success: (responce) => {
+      responce.all.forEach((id) => {
+        $('#' + id).hide()
+      })
+      responce.data.forEach((id) => {
+        $('#element2').hide()
+        $('#add').hide()
+        $('#diary-all').show()
+        $('#' + id).show()
+      })
+    },
+  })
+})
 
 const edit_diary = (id) => {
   let csrf = document.querySelector('input[name="csrfmiddlewaretoken"]').value

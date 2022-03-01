@@ -101,3 +101,22 @@ def del_diary(request):
         diary.delete()
         return JsonResponse({'message':'1'})
 
+@login_required
+def search(request):
+    if request.method == 'POST':
+        data = []
+        all = []
+        text = request.POST['text']
+        diary = Diary.objects.all()
+        for endry in diary:
+            all.append(endry.id)
+            if text in endry.title and text in endry.body:
+                data.append(endry.id)
+            else:
+                if text in endry.body:
+                    data.append(endry.id)
+                if text in endry.title:
+                    data.append(endry.id)
+                if text in str(endry.date):
+                    data.append(endry.id)
+        return JsonResponse({'all':all,'data':data})
