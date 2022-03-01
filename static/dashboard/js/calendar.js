@@ -41,7 +41,7 @@ $('#submit').click(() => {
     alert('Write a body')
   } else {
     let csrf = document.querySelector('input[name="csrfmiddlewaretoken"]').value
-    console.log(csrf)
+    console.log(localStorage.getItem('date'))
     let data = {
       csrfmiddlewaretoken: csrf,
       date: localStorage.getItem('date'),
@@ -62,6 +62,35 @@ $('#submit').click(() => {
     })
   }
 })
+$('#cancel').click(() => {
+  $('#title').val('')
+  $('#text').val('')
+  $('#page').hide()
+  $('#element2').hide()
+  $('#diary-all').show()
+})
+
+const edit_diary = (id) => {
+  let csrf = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+  let data = {
+    csrfmiddlewaretoken: csrf,
+    id: id,
+  }
+  $.ajax({
+    url: 'edit-diary',
+    method: 'POST',
+    data: data,
+    dataType: 'json',
+    success: (responce) => {
+      localStorage.setItem('date', responce.date)
+      $('#diary-all').hide()
+      $('#page').show()
+      $('#date').html(responce.date)
+      $('#title').val(responce.title)
+      $('#text').val(responce.body)
+    },
+  })
+}
 
 const del_diary = (id) => {
   let csrf = document.querySelector('input[name="csrfmiddlewaretoken"]').value
@@ -101,7 +130,9 @@ var calendar = new ej.calendars.Calendar({
           $('#add-calendar').hide()
           $('#diary').show()
           $('#diary-title').html(responce.title)
-          $('#diary-body').html(responce.body)
+          let converter = new showdown.Converter()
+          let body = converter.makeHtml(responce.body)
+          $('#diary-body').html(body)
         } else {
           $('#page').hide()
           $('#add').show()

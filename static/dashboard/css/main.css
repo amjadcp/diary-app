@@ -42,7 +42,7 @@
   background-color: wheat;
 }
 
-.all-diary {
-  display: flex;
-  align-items: flex-end;
+.delete {
+  align-content: center;
+  background-color: red;
 }

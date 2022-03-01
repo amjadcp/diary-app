@@ -62,22 +62,36 @@ def calendar(request):
 def create_diary(request):
     print(request.POST)
     date = request.POST['date']
-    date = date.split('/')
-    if int(date[0])<10:
-        date[0] = '0'+date[0]
-    if int(date[1])<10:
-        date[1] = '0'+date[1]
-    date = f'{date[2]}-{date[1]}-{date[0]}'
+    if '/' in date:
+        date = date.split('/')
+        if int(date[0])<10:
+            date[0] = '0'+date[0]
+        if int(date[1])<10:
+            date[1] = '0'+date[1]
+        date = f'{date[2]}-{date[1]}-{date[0]}'
 
     title = request.POST['title']
     body = request.POST['text']
-    Diary.objects.create(
-        user = request.user,
-        date = date,
-        title = title,
-        body = body
-    )
+    try:
+        diary = Diary.objects.get(date=date)
+        diary.title = title
+        diary.body = body
+        diary.save()
+    except:
+        Diary.objects.create(
+            user = request.user,
+            date = date,
+            title = title,
+            body = body
+        )
     return JsonResponse({'message':'1'})
+
+@login_required
+def edit_diary(request):
+    if request.method == 'POST':
+        id = request.POST['id']
+        diary = Diary.objects.get(id=id)
+        return JsonResponse({'date':diary.date,'title':diary.title,'body':diary.body})
 
 @login_required
 def del_diary(request):
@@ -86,3 +100,4 @@ def del_diary(request):
         diary = Diary.objects.get(id=id)
         diary.delete()
         return JsonResponse({'message':'1'})
+

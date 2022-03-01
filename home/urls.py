@@ -8,5 +8,6 @@ urlpatterns = [
     path('dashboard', dashboard, name='dashboard'),
     path('calendar', calendar, name='calendar'),
     path('create-diary', create_diary, name='create-diary'),
+    path('edit-diary', edit_diary, name='edit-diary'),
     path('del-diary', del_diary, name='del-diary'),
 ]
