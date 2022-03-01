@@ -26,6 +26,12 @@ Login
     <div class="p-t-15">
         <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
     </div>
+    {% if form.errors %}
+		<div class="alert alert-danger">
+			<strong>username or password not correct</strong>
+		</div>
+	{% endif %}
+<br>
     <div class="text-center"><a href='../password_reset/'> Forget password ? </a></div>
 
 </form>
