@@ -6,8 +6,6 @@
 
 # Project Name
 
-Long Description about project. This project do that. This project is awesome...
-
 ## Team members
 
 1. <a href="https://github.com/amjadcp/">Amjad C P</a>
@@ -20,15 +18,6 @@ Python/210
 ## Link to product walkthrough
 
 [![TASK-CLI](previews/preview.png)](previews/preview.mp4)
-
-## How it Works ?
-
-1. Step 1
-2. Step 2
-
-## Libraries used
-
-Library Name - Version
 
 ## Setup
 
@@ -70,3 +59,18 @@ $ python manage.py runserver
 ```
 
 And navigate to `http://127.0.0.1:8000/`.
+
+## Libraries used
+
+1. asgiref==3.5.0
+2. backports.zoneinfo==0.2.1
+3. dj-database-url==0.5.0
+4. Django==4.0.2
+5. django-heroku==0.3.1
+6. gunicorn==20.1.0
+7. importlib-metadata==4.11.2
+8. Markdown==3.3.6
+9. psycopg2==2.9.3
+10. sqlparse==0.4.2
+11. whitenoise==6.0.0
+12. zipp==3.7.0
