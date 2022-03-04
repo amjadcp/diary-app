@@ -4,7 +4,6 @@
 
 ![preview](previews/preview.png)
 
-# Project Name
 
 ## Team members
 
