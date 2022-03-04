@@ -17,7 +17,7 @@ Python/210
 
 ## Link to product walkthrough
 
-[![TASK-CLI](previews/preview.png)](previews/preview.mp4)
+[![TASK-CLI](previews/preview.png)](https://www.loom.com/share/befdc5eb98df442884e4cd23c5e4eeb2?sharedAppSource=personal_library)
 
 ## Setup
 
