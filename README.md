@@ -1,9 +1,8 @@
 # My-Diary
 
-### Project for Tinkerhub Co-coder event
+### This Project for Tinkerhub Co-coder event
 
 ![preview](previews/preview.png)
-
 
 ## Team members
 
@@ -15,6 +14,8 @@
 Python/210
 
 ## Link to product walkthrough
+
+<a href="https://www.loom.com/share/befdc5eb98df442884e4cd23c5e4eeb2?sharedAppSource=personal_library"><strong>Click »</strong></a>
 
 [![TASK-CLI](previews/preview.png)](https://www.loom.com/share/befdc5eb98df442884e4cd23c5e4eeb2?sharedAppSource=personal_library)
 
